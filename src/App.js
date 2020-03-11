@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 
 import { getJobs } from "./services/jobs";
 import { getCurrentLocation } from "./services/location";
 import { getDistance } from "./util";
 
 import { GlobalStyle } from "./components/common";
+import JobFeed from "./components/JobFeed";
 import Mapbox from "./components/Mapbox";
-import JobList from "./components/JobList";
-import JobMenu from "./components/JobMenu";
 
 const App = () => {
   const [jobs, setJobs] = useState([]);
@@ -51,26 +49,19 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <JobFeed>
-        <JobMenu
-          count={sortedJobs.length}
-          search={search}
-          setSearch={setSearch}
-          company={company}
-          setCompany={setCompany}
-          remote={remote}
-          setRemote={setRemote}
-        />
-        <JobList jobs={sortedJobs} />
-      </JobFeed>
-      <Mapbox jobs={sortedJobs} />
+      <JobFeed
+        count={sortedJobs.length}
+        search={search}
+        setSearch={setSearch}
+        company={company}
+        setCompany={setCompany}
+        remote={remote}
+        setRemote={setRemote}
+        jobs={sortedJobs}
+      />
+      <Mapbox jobs={sortedJobs} position={position} />
     </>
   );
 };
-
-const JobFeed = styled.div`
-  width: 600px;
-  float: left;
-`;
 
 export default App;

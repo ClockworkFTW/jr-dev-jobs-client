@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import styled from "styled-components";
+
+import { Alert } from "./Alert";
+import { Markers } from "./Markers";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
-const Mapbox = ({ width, height, jobs }) => {
+const Mapbox = ({ jobs, position }) => {
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: -95,
@@ -17,7 +20,8 @@ const Mapbox = ({ width, height, jobs }) => {
   };
 
   return (
-    <Container width={width} height={height}>
+    <Container>
+      <Alert position={position} />
       <ReactMapGL
         width="100%"
         height="100%"
@@ -25,35 +29,20 @@ const Mapbox = ({ width, height, jobs }) => {
         onViewportChange={viewport => onViewportChange(viewport)}
         mapboxApiAccessToken={TOKEN}
       >
-        {jobs.map((job, i) =>
-          job.coords ? (
-            <Marker
-              key={i}
-              latitude={job.coords.lat}
-              longitude={job.coords.lng}
-            >
-              <MarkerLogo src={job.logo} />
-            </Marker>
-          ) : null
-        )}
+        <Markers jobs={jobs} />
       </ReactMapGL>
     </Container>
   );
 };
 
 const Container = styled.div`
+  position: relative;
   float: right;
   width: calc(100vw - 600px);
   height: 100vh;
-`;
-
-const MarkerLogo = styled.img`
-  width: 50px;
-  height: 50px;
-  padding: 10px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  background: #ffffff;
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
 export default Mapbox;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { companies } from "../../config";
+import { companies } from "../../../config";
 import { Count } from "./Count";
 import { Search } from "./Search";
 import { Select } from "./Select";

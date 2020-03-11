@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Icon } from "../common";
+import { Icon } from "../../common";
 
 export const Job = ({ job }) => (
   <Container>
@@ -67,4 +67,8 @@ const Location = styled.h3`
   color: #a0aec0;
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  @media (max-width: 900px) {
+    display: none;
+  }
+`;

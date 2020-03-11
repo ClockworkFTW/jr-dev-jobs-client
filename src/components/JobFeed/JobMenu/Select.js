@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Icon } from "../common";
+import { Icon } from "../../common";
 
 export const Select = ({ options, value, setValue }) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -39,7 +39,7 @@ const Container = styled.div`
 const Active = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 12px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 4px;
@@ -62,7 +62,7 @@ const Options = styled.ul`
 `;
 
 const Option = styled.li`
-  padding: 10px;
+  padding: 12px;
   &:hover {
     cursor: pointer;
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Icon } from "../common";
+import { Icon } from "../../common";
 
 export const Search = ({ search, setSearch }) => (
   <Container>

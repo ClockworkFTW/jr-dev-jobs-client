@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Icon } from "../common";
+import { Icon } from "../../common";
 
 export const Remote = ({ remote, setRemote }) => (
   <Button type="button" active={remote} onClick={() => setRemote(!remote)}>
