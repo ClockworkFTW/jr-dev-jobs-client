@@ -36,14 +36,4 @@ const Container = styled.div`
   border-bottom: 1px solid #edf2f7;
 `;
 
-const Input = styled.input`
-  padding: 10px;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 14px;
-  background: #edf2f7;
-`;
-
 export default JobMenu;

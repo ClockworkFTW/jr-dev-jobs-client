@@ -14,7 +14,7 @@ const App = () => {
   const [jobs, setJobs] = useState([]);
   const [position, setPosition] = useState(null);
   const [search, setSearch] = useState("");
-  const [company, setCompany] = useState("All Companies");
+  const [company, setCompany] = useState("All companies");
   const [remote, setRemote] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const App = () => {
   const filteredJobs = jobs.filter(job => {
     const includeTitle = job.title.toLowerCase().includes(search.toLowerCase());
     const includeCompany =
-      company === "All Companies" ? true : job.company === company;
+      company === "All companies" ? true : job.company === company;
     const includeRemote = remote ? true : job.location !== "remote";
     return includeTitle && includeCompany && includeRemote ? true : false;
   });

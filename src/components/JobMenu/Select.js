@@ -19,8 +19,10 @@ export const Select = ({ options, value, setValue }) => {
       </Active>
       {showOptions && (
         <Options>
-          {options.map(option => (
-            <Option onClick={() => handleSelect(option)}>{option}</Option>
+          {options.map((option, i) => (
+            <Option key={i} onClick={() => handleSelect(option)}>
+              {option}
+            </Option>
           ))}
         </Options>
       )}
@@ -50,6 +52,7 @@ const Options = styled.ul`
   position: absolute;
   left: 0;
   right: 0;
+  top: 46px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 4px;

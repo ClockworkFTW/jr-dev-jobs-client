@@ -35,4 +35,5 @@ const Text = styled.span`
   margin-right: 4px;
   font-size: 12px;
   font-weight: 500;
+  color: #434190;
 `;

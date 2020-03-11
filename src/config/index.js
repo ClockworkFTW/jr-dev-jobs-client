@@ -1,5 +1,5 @@
 export const companies = [
-  "All Companies",
+  "All companies",
   "GitHub",
   "Stripe",
   "eBay",

@@ -5,7 +5,7 @@ import { Icon } from "../common";
 
 export const Search = ({ search, setSearch }) => (
   <Container>
-    <Icon size="18px" icon={["fal", "search"]} />
+    <Icon fontSize="18px" icon={["fal", "search"]} />
     <Input
       type="text"
       placeholder="Search job title"
@@ -37,6 +37,7 @@ const Input = styled.input`
   text-transform: capitalize;
   background: #edf2f7;
   &::placeholder {
+    text-transform: none;
     color: #718096;
   }
 `;

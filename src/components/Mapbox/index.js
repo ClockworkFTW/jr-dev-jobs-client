@@ -20,9 +20,13 @@ const Mapbox = ({ width, height, jobs }) => {
         onViewportChange={viewport => setViewport(viewport)}
         mapboxApiAccessToken={TOKEN}
       >
-        {jobs.map(job =>
+        {jobs.map((job, i) =>
           job.coords ? (
-            <Marker latitude={job.coords.lat} longitude={job.coords.lng}>
+            <Marker
+              key={i}
+              latitude={job.coords.lat}
+              longitude={job.coords.lng}
+            >
               <MarkerLogo src={job.logo} />
             </Marker>
           ) : null

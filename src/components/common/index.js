@@ -19,5 +19,5 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Icon = styled(FontAwesomeIcon)`
-  font-size: ${props => props.size};
+  font-size: ${props => props.fontSize};
 `;
