@@ -6,18 +6,23 @@ const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const Mapbox = ({ width, height, jobs }) => {
   const [viewport, setViewport] = useState({
-    width: "100%",
-    height: "100%",
     latitude: 37,
     longitude: -95,
     zoom: 3
   });
 
+  const onViewportChange = viewport => {
+    const { width, height, ...etc } = viewport;
+    setViewport(etc);
+  };
+
   return (
     <Container width={width} height={height}>
       <ReactMapGL
+        width="100%"
+        height="100%"
         {...viewport}
-        onViewportChange={viewport => setViewport(viewport)}
+        onViewportChange={viewport => onViewportChange(viewport)}
         mapboxApiAccessToken={TOKEN}
       >
         {jobs.map((job, i) =>
@@ -38,8 +43,8 @@ const Mapbox = ({ width, height, jobs }) => {
 
 const Container = styled.div`
   float: right;
-  width: ${props => props.width};
-  height: ${props => props.height};
+  width: calc(100vw - 600px);
+  height: 100vh;
 `;
 
 const MarkerLogo = styled.img`

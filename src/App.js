@@ -63,7 +63,7 @@ const App = () => {
         />
         <JobList jobs={sortedJobs} />
       </JobFeed>
-      <Mapbox width="calc(100vw - 600px)" height="100vh" jobs={sortedJobs} />
+      <Mapbox jobs={sortedJobs} />
     </>
   );
 };
