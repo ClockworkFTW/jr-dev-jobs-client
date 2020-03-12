@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Icon } from "../../common";
 
-export const Job = ({ job }) => (
+export const Job = ({ job, flyTo }) => (
   <Container>
     <Link href={job.link}>
       <Logo src={job.logo} alt={`${job.company} logo`} />
@@ -12,7 +12,7 @@ export const Job = ({ job }) => (
         <Title>{job.title}</Title>
         <Location>{job.location}</Location>
       </Content>
-      <Button type="text">
+      <Button type="text" onClick={() => flyTo(job.coords)}>
         <Icon icon={["fal", "location"]} />
       </Button>
     </Link>
@@ -31,7 +31,7 @@ const Container = styled.li`
   }
 `;
 
-const Link = styled.a`
+const Link = styled.div`
   display: flex;
   align-items: center;
   padding: 20px;

@@ -3,13 +3,11 @@ import { Marker } from "react-map-gl";
 import styled from "styled-components";
 
 export const Markers = ({ jobs }) =>
-  jobs.map((job, i) =>
-    job.coords ? (
-      <Marker key={i} latitude={job.coords.lat} longitude={job.coords.lng}>
-        <Logo src={job.logo} />
-      </Marker>
-    ) : null
-  );
+  jobs.map((job, i) => (
+    <Marker key={i} latitude={job.coords.lat} longitude={job.coords.lng}>
+      <Logo src={job.logo} />
+    </Marker>
+  ));
 
 const Logo = styled.img`
   width: 50px;
