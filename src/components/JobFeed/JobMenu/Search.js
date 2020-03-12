@@ -10,7 +10,7 @@ export const Search = ({ search, setSearch }) => (
       type="text"
       placeholder="Search job title"
       value={search}
-      onChange={e => setSearch(e.target.value)}
+      onChange={e => setSearch("search", e.target.value)}
     />
   </Container>
 );

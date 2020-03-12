@@ -1,29 +1,22 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { companies } from "../../../config";
+import { setFilter } from "../../../reducers/filter";
+
 import { Count } from "./Count";
 import { Search } from "./Search";
-import { Select } from "./Select";
+import { Company } from "./Company";
 import { Remote } from "./Remote";
 
-const JobMenu = props => {
-  const {
-    count,
-    search,
-    setSearch,
-    company,
-    setCompany,
-    remote,
-    setRemote
-  } = props;
-
+const JobMenu = ({ count, filters, setFilter }) => {
+  const { search, company, remote } = filters;
   return (
     <Container>
       <Count count={count} />
-      <Search search={search} setSearch={setSearch} />
-      <Select options={companies} value={company} setValue={setCompany} />
-      <Remote remote={remote} setRemote={setRemote} />
+      <Search search={search} setSearch={setFilter} />
+      <Company company={company} setCompany={setFilter} />
+      <Remote remote={remote} setRemote={setFilter} />
     </Container>
   );
 };
@@ -36,4 +29,9 @@ const Container = styled.div`
   border-bottom: 1px solid #edf2f7;
 `;
 
-export default JobMenu;
+const mapStateToProps = state => ({
+  filters: state.filters,
+  count: state.jobs.data.length
+});
+
+export default connect(mapStateToProps, { setFilter })(JobMenu);

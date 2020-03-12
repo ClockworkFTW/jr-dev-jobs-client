@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseURL = "http://localhost:3005/jobs";
 
-export const getJobs = async setJobs => {
+export const getJobs = async () => {
   const jobs = await axios.get(baseURL);
-  setJobs(jobs.data);
+  return jobs.data;
 };

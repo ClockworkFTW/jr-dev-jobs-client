@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { Icon } from "../../common";
 
 export const Remote = ({ remote, setRemote }) => (
-  <Button type="button" active={remote} onClick={() => setRemote(!remote)}>
+  <Button
+    type="button"
+    active={remote}
+    onClick={() => setRemote("remote", !remote)}
+  >
     <Icon icon={["fal", "home-alt"]} />
   </Button>
 );

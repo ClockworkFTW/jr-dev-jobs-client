@@ -4,12 +4,12 @@ const asyncGetCurrentLocaiton = () => {
   });
 };
 
-export const getCurrentLocation = async setPosition => {
+export const getCurrentLocation = async () => {
   try {
     const { coords } = await asyncGetCurrentLocaiton();
     const { latitude, longitude } = coords;
-    setPosition({ latitude, longitude });
+    return { latitude, longitude };
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

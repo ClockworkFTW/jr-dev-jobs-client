@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { companies } from "../../../config";
+
 import { Icon } from "../../common";
 
-export const Select = ({ options, value, setValue }) => {
+export const Company = ({ company, setCompany }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   const handleSelect = option => {
-    setValue(option);
+    setCompany("company", option);
     setShowOptions(false);
   };
 
   return (
     <Container>
       <Active onClick={() => setShowOptions(!showOptions)}>
-        {value}
+        {company}
         <Icon icon={["fal", "sort"]} />
       </Active>
       {showOptions && (
         <Options>
-          {options.map((option, i) => (
+          {companies.map((option, i) => (
             <Option key={i} onClick={() => handleSelect(option)}>
               {option}
             </Option>

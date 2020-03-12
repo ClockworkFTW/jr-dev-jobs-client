@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import ReactMapGL from "react-map-gl";
 import styled from "styled-components";
 
@@ -7,11 +8,11 @@ import { Markers } from "./Markers";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
-const Mapbox = ({ jobs, position }) => {
+const Mapbox = ({ jobs, location }) => {
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: -95,
-    zoom: 3
+    zoom: 3.5
   });
 
   const onViewportChange = viewport => {
@@ -21,7 +22,7 @@ const Mapbox = ({ jobs, position }) => {
 
   return (
     <Container>
-      <Alert position={position} />
+      <Alert location={location} />
       <ReactMapGL
         width="100%"
         height="100%"
@@ -45,4 +46,9 @@ const Container = styled.div`
   }
 `;
 
-export default Mapbox;
+const mapStateToProps = state => ({
+  jobs: state.jobs.data,
+  location: state.location.data
+});
+
+export default connect(mapStateToProps)(Mapbox);

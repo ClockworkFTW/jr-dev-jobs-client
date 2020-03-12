@@ -1,33 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+
+import { fetchJobs } from "../../reducers/jobs";
+import { fetchLocation } from "../../reducers/location";
 
 import JobList from "./JobList";
 import JobMenu from "./JobMenu";
 
-const App = props => {
-  const {
-    count,
-    search,
-    setSearch,
-    company,
-    setCompany,
-    remote,
-    setRemote,
-    jobs
-  } = props;
+const App = ({ fetchJobs, fetchLocation }) => {
+  useEffect(() => {
+    fetchJobs();
+    fetchLocation();
+  }, []);
 
   return (
     <Container>
-      <JobMenu
-        count={count}
-        search={search}
-        setSearch={setSearch}
-        company={company}
-        setCompany={setCompany}
-        remote={remote}
-        setRemote={setRemote}
-      />
-      <JobList jobs={jobs} />
+      <JobMenu />
+      <JobList />
     </Container>
   );
 };
@@ -41,4 +31,4 @@ const Container = styled.div`
   }
 `;
 
-export default App;
+export default connect(null, { fetchJobs, fetchLocation })(App);

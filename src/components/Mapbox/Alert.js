@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import { Icon } from "../common";
 
-export const Alert = ({ position }) =>
-  !position ? (
+export const Alert = ({ location }) =>
+  !location ? (
     <Container>
       <Icon icon={["fal", "exclamation-triangle"]} />
       <Text>Please allow location services for accurate sorting</Text>
