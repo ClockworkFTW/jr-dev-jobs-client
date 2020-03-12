@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 import { reduceJobs } from "../../../util";
 import { setViewport } from "../../../reducers/map";
+import { setFavorite } from "../../../reducers/jobs";
 
 import { Status } from "./Status";
 import { Job } from "./Job";
 
-const JobList = ({ jobs, pending, error, setViewport }) => {
+const JobList = ({ jobs, pending, error, setViewport, setFavorite }) => {
   const flyTo = coords => {
     if (coords) {
       setViewport({
@@ -24,7 +25,7 @@ const JobList = ({ jobs, pending, error, setViewport }) => {
       <Status pending={pending} error={error} />
       <Container>
         {jobs.map((job, i) => (
-          <Job key={i} job={job} flyTo={flyTo} />
+          <Job key={i} job={job} flyTo={flyTo} setFavorite={setFavorite} />
         ))}
       </Container>
     </Wrapper>
@@ -47,4 +48,4 @@ const mapStateToProps = state => ({
   error: state.jobs.error
 });
 
-export default connect(mapStateToProps, { setViewport })(JobList);
+export default connect(mapStateToProps, { setViewport, setFavorite })(JobList);

@@ -51,6 +51,7 @@ const Active = styled.div`
 `;
 
 const Options = styled.ul`
+  z-index: 1;
   position: absolute;
   left: 0;
   right: 0;
