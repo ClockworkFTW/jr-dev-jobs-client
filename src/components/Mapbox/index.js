@@ -41,6 +41,7 @@ const Container = styled.div`
   float: right;
   width: calc(100vw - 600px);
   height: 100vh;
+  background: #eeeeee;
   @media (max-width: 900px) {
     display: none;
   }

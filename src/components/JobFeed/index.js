@@ -12,7 +12,7 @@ const App = ({ fetchJobs, fetchLocation }) => {
   useEffect(() => {
     fetchJobs();
     fetchLocation();
-  }, []);
+  }, [fetchJobs, fetchLocation]);
 
   return (
     <Container>

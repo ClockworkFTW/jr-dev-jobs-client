@@ -4,24 +4,35 @@ import styled from "styled-components";
 
 import { reduceJobs } from "../../../util";
 
+import { Status } from "./Status";
 import { Job } from "./Job";
 
-const JobList = ({ jobs }) =>
+const JobList = ({ jobs, pending, error }) =>
   jobs ? (
-    <Container>
-      {jobs.map((job, i) => (
-        <Job key={i} job={job} />
-      ))}
-    </Container>
+    <Wrapper>
+      <Status pending={pending} error={error} />
+      <Container>
+        {jobs.map((job, i) => (
+          <Job key={i} job={job} />
+        ))}
+      </Container>
+    </Wrapper>
   ) : null;
 
-const Container = styled.ul`
+const Wrapper = styled.div`
   height: calc(100vh - 87px);
-  padding: 20px;
   overflow: scroll;
   background: #f7fafc;
 `;
 
-const mapStateToProps = state => ({ jobs: reduceJobs(state) });
+const Container = styled.ul`
+  padding: 20px;
+`;
+
+const mapStateToProps = state => ({
+  jobs: reduceJobs(state),
+  pending: state.jobs.pending,
+  error: state.jobs.error
+});
 
 export default connect(mapStateToProps)(JobList);
