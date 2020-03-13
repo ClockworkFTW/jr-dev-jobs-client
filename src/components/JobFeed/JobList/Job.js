@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import styled from "styled-components";
 
 import { Icon } from "../../common";
@@ -8,9 +9,16 @@ export const Job = ({ job, flyTo, setFavorite }) => (
     <Link href={job.link}>
       <Logo src={job.logo} alt={`${job.company} logo`} />
       <Content>
+        <Time>
+          <Icon style={{ marginRight: "6px" }} icon={["fal", "clock"]} />
+          {moment(job.time).fromNow()}
+        </Time>
         <Company>{job.company}</Company>
         <Title>{job.title}</Title>
-        <Location>{job.location}</Location>
+        <Location>
+          <Icon style={{ marginRight: "6px" }} icon={["fal", "map-marker"]} />
+          {job.location}
+        </Location>
       </Content>
       <Buttons>
         <Button type="text" onClick={() => flyTo(job.coords)}>
@@ -59,7 +67,13 @@ const Content = styled.div`
   margin: 0 40px 0 20px;
 `;
 
+const Time = styled.h3`
+  font-size: 14px;
+  color: #a0aec0;
+`;
+
 const Company = styled.h2`
+  margin-top: 8px;
   font-weight: 700;
   font-size: 16px;
   color: #4a5568;
