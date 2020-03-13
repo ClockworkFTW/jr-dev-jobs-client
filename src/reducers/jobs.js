@@ -63,15 +63,19 @@ const jobsReducer = (state = INITIAL_STATE, action) => {
 
 const setFavorites = ({ jobs }) => {
   let cachedFavs = localStorage.getItem(FAVCACHE);
-  cachedFavs = JSON.parse(cachedFavs);
 
-  return jobs.map(job => {
-    if (cachedFavs.includes(job.id)) {
-      return { ...job, favorite: true };
-    } else {
-      return job;
-    }
-  });
+  if (cachedFavs) {
+    cachedFavs = JSON.parse(cachedFavs);
+    return jobs.map(job => {
+      if (cachedFavs.includes(job.id)) {
+        return { ...job, favorite: true };
+      } else {
+        return job;
+      }
+    });
+  } else {
+    return jobs;
+  }
 };
 
 const cacheFavorites = ({ id }) => {

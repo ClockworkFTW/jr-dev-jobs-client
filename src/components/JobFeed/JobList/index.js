@@ -40,9 +40,7 @@ const Wrapper = styled.div`
   background: #f7fafc;
 `;
 
-const Container = styled.ul`
-  padding: 20px;
-`;
+const Container = styled.ul``;
 
 const mapStateToProps = state => ({
   jobs: reduceJobs(state),

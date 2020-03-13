@@ -6,39 +6,47 @@ import { Icon } from "../../common";
 
 export const Job = ({ job, flyTo, setFavorite }) => (
   <Container favorite={job.favorite}>
-    <Link href={job.link}>
-      <Logo src={job.logo} alt={`${job.company} logo`} />
-      <Content>
-        <Time>
-          <Icon style={{ marginRight: "6px" }} icon={["fal", "clock"]} />
-          {moment(job.time).fromNow()}
-        </Time>
+    <Logo
+      src={job.logo}
+      alt={`${job.company} logo`}
+      onClick={() => flyTo(job.coords)}
+    />
+    <Content>
+      <Banner>
         <Company>{job.company}</Company>
-        <Title>{job.title}</Title>
-        <Location>
-          <Icon style={{ marginRight: "6px" }} icon={["fal", "map-marker"]} />
-          {job.location}
-        </Location>
-      </Content>
-      <Buttons>
-        <Button type="text" onClick={() => flyTo(job.coords)}>
-          <Icon icon={["fal", "location"]} />
-        </Button>
-        <Button
-          type="text"
-          style={{ color: job.favorite ? "#D69E2E" : "#4A5568" }}
+        <Favorite
+          type="button"
+          favorite={job.favorite}
           onClick={() => setFavorite(job.id)}
         >
           <Icon icon={["fal", "star"]} />
-        </Button>
-      </Buttons>
-    </Link>
+        </Favorite>
+      </Banner>
+      <Title href={job.link} target="_blank" rel="noopener noreferrer">
+        {job.title}
+      </Title>
+      <Banner>
+        <MetaData favorite={job.favorite}>
+          <Icon
+            style={{ marginRight: "6px" }}
+            icon={["fal", job.coords ? "map-marker" : "globe"]}
+          />
+          {job.location}
+        </MetaData>
+        <MetaData favorite={job.favorite}>
+          <Icon style={{ marginRight: "6px" }} icon={["fal", "clock"]} />
+          {moment(job.time).fromNow()}
+        </MetaData>
+      </Banner>
+    </Content>
   </Container>
 );
 
 const Container = styled.li`
-  position: relative;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
   border: 1px solid ${props => (props.favorite ? "#D69E2E" : "#edf2f7")};
   border-radius: 8px;
   background: ${props => (props.favorite ? "#FAF089" : "#ffffff")};
@@ -49,69 +57,65 @@ const Container = styled.li`
   }
 `;
 
-const Link = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  text-decoration: none;
-`;
-
 const Logo = styled.img`
   flex: 0;
   width: 80px;
   height: 80px;
+  margin-right: 20px;
+  @media (max-width: 900px) {
+    display: none;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled.div`
   flex: 1;
-  margin: 0 40px 0 20px;
 `;
 
-const Time = styled.h3`
-  font-size: 14px;
-  color: #a0aec0;
+const Banner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Company = styled.h2`
-  margin-top: 8px;
+  margin-bottom: 8px;
   font-weight: 700;
   font-size: 16px;
   color: #4a5568;
 `;
 
-const Title = styled.h1`
-  margin: 8px 0;
-  font-weight: 700;
-  font-size: 22px;
-  color: #2d3748;
-`;
-
-const Location = styled.h3`
-  font-size: 14px;
-  color: #a0aec0;
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const Button = styled.button`
-  padding: 10px;
+const Favorite = styled.button`
+  padding: 0;
   border: none;
   background: none;
   outline: none;
   font-size: 20px;
+  color: ${props => (props.favorite ? "#D69E2E" : "#718096")};
   &:hover {
-    color: #48bb78;
+    color: #d69f2e;
     cursor: pointer;
   }
+`;
+
+const Title = styled.a`
+  display: block;
+  margin: 6px 30px 16px 0;
+  text-decoration: none;
+  line-height: 28px;
+  font-weight: 700;
+  font-size: 22px;
+  color: #2d3748;
+  &:hover {
+    color: #667eea;
+  }
+`;
+
+const MetaData = styled.h3`
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 200;
+  color: ${props => (props.favorite ? "#D69E2E" : "#a0aec0")};
 `;

@@ -24,6 +24,8 @@ export const Count = ({ count }) => {
 const Container = styled.div`
   display: flex;
   align-items: center;
+  padding: 20px 20px 0 20px;
+  color: #718096;
 `;
 
 const Text = styled.span`

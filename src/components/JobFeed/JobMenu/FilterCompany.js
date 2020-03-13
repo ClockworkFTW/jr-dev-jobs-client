@@ -35,7 +35,7 @@ export const FilterCompany = ({ company, setCompany }) => {
 const Container = styled.div`
   position: relative;
   flex: 0 0 160px;
-  margin: 0 16px;
+  margin: 0 8px 0 16px;
   font-size: 14px;
 `;
 
