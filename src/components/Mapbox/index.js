@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import styled from "styled-components";
 
+import { reduceJobs } from "../../util";
+
 import { Alert } from "./Alert";
 import { Markers } from "./Markers";
 
@@ -65,7 +67,7 @@ const Container = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  jobs: state.jobs.data,
+  jobs: reduceJobs(state),
   location: state.location.data,
   map: state.map
 });

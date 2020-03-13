@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 import { Icon } from "../../common";
 
-export const Remote = ({ remote, setRemote }) => (
+export const FilterButton = ({ filter, name, icon, setFilter }) => (
   <Button
     type="button"
-    active={remote}
-    onClick={() => setRemote("remote", !remote)}
+    active={filter}
+    onClick={() => setFilter(name, !filter)}
   >
-    <Icon icon={["fal", "home-alt"]} />
+    <Icon icon={["fal", icon]} />
   </Button>
 );
 

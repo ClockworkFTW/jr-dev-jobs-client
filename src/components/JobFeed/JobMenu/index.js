@@ -4,19 +4,28 @@ import styled from "styled-components";
 
 import { setFilter } from "../../../reducers/filter";
 
-import { Count } from "./Count";
-import { Search } from "./Search";
-import { Company } from "./Company";
-import { Remote } from "./Remote";
+import { FilterSearch } from "./FilterSearch";
+import { FilterCompany } from "./FilterCompany";
+import { FilterButton } from "./FilterButton";
 
-const JobMenu = ({ count, filters, setFilter }) => {
-  const { search, company, remote } = filters;
+const JobMenu = ({ filters, setFilter }) => {
+  const { search, company, remote, favorite } = filters;
   return (
     <Container>
-      <Count count={count} />
-      <Search search={search} setSearch={setFilter} />
-      <Company company={company} setCompany={setFilter} />
-      <Remote remote={remote} setRemote={setFilter} />
+      <FilterSearch search={search} setSearch={setFilter} />
+      <FilterCompany company={company} setCompany={setFilter} />
+      <FilterButton
+        filter={remote}
+        name="remote"
+        icon="globe"
+        setFilter={setFilter}
+      />
+      <FilterButton
+        filter={favorite}
+        name="favorite"
+        icon="star"
+        setFilter={setFilter}
+      />
     </Container>
   );
 };
@@ -30,8 +39,7 @@ const Container = styled.div`
 `;
 
 const mapStateToProps = state => ({
-  filters: state.filters,
-  count: state.jobs.data.length
+  filters: state.filters
 });
 
 export default connect(mapStateToProps, { setFilter })(JobMenu);

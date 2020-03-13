@@ -20,7 +20,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 };
 
 const filterJobs = (jobs, filters) => {
-  const { search, company, remote } = filters;
+  const { search, company, remote, favorite } = filters;
 
   return jobs.filter(job => {
     // Check if job title contains search value
@@ -33,10 +33,20 @@ const filterJobs = (jobs, filters) => {
       company === "All companies" ? true : job.company === company;
 
     // Check if job is remote
-    const filteredByRemote = remote ? true : job.location !== "remote";
+    const filteredByRemote = remote
+      ? job.location === "remote"
+      : job.location !== "remote";
+
+    // Check if job is favorited
+    const filterByFavorite = favorite ? job.favorite : true;
 
     // Apply all filters to jobs array
-    if (filteredByTitle && filteredByCompany && filteredByRemote) {
+    if (
+      filteredByTitle &&
+      filteredByCompany &&
+      filteredByRemote &&
+      filterByFavorite
+    ) {
       return true;
     } else {
       return false;

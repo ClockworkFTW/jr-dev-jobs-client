@@ -7,6 +7,7 @@ import { setViewport } from "../../../reducers/map";
 import { setFavorite } from "../../../reducers/jobs";
 
 import { Status } from "./Status";
+import { Count } from "./Count";
 import { Job } from "./Job";
 
 const JobList = ({ jobs, pending, error, setViewport, setFavorite }) => {
@@ -20,16 +21,17 @@ const JobList = ({ jobs, pending, error, setViewport, setFavorite }) => {
     }
   };
 
-  return jobs ? (
+  return (
     <Wrapper>
       <Status pending={pending} error={error} />
       <Container>
+        <Count count={jobs.length} />
         {jobs.map((job, i) => (
           <Job key={i} job={job} flyTo={flyTo} setFavorite={setFavorite} />
         ))}
       </Container>
     </Wrapper>
-  ) : null;
+  );
 };
 
 const Wrapper = styled.div`

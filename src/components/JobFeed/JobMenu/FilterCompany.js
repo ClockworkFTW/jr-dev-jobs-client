@@ -5,7 +5,7 @@ import { companies } from "../../../config";
 
 import { Icon } from "../../common";
 
-export const Company = ({ company, setCompany }) => {
+export const FilterCompany = ({ company, setCompany }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   const handleSelect = option => {
@@ -35,6 +35,7 @@ export const Company = ({ company, setCompany }) => {
 const Container = styled.div`
   position: relative;
   flex: 0 0 160px;
+  margin: 0 16px;
   font-size: 14px;
 `;
 

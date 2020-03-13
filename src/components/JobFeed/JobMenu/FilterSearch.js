@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Icon } from "../../common";
 
-export const Search = ({ search, setSearch }) => (
+export const FilterSearch = ({ search, setSearch }) => (
   <Container>
     <Icon fontSize="18px" icon={["fal", "search"]} />
     <Input
@@ -16,7 +16,7 @@ export const Search = ({ search, setSearch }) => (
 );
 
 const Container = styled.div`
-  flex: 0 0 200px;
+  flex: 1;
   display: flex;
   justify-content: space-betwen;
   align-items: center;

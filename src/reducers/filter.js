@@ -8,7 +8,8 @@ export const setFilter = (name, value) => ({
 const INITIAL_STATE = {
   search: "",
   company: "All companies",
-  remote: false
+  remote: false,
+  favorite: false
 };
 
 const filterReducer = (state = INITIAL_STATE, action) => {
