@@ -12,6 +12,8 @@ export const GlobalStyle = createGlobalStyle`
   }
   *, *:before, *:after {
     box-sizing: inherit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   body {
     font-family: 'Inter', sans-serif;
@@ -19,5 +21,5 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Icon = styled(FontAwesomeIcon)`
-  font-size: ${props => props.fontSize};
+  font-size: ${(props) => props.fontSize};
 `;

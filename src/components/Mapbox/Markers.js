@@ -4,7 +4,11 @@ import styled from "styled-components";
 
 export const Markers = ({ jobs }) =>
   jobs.map((job, i) => (
-    <Marker key={i} latitude={job.coords.lat} longitude={job.coords.lng}>
+    <Marker
+      key={i}
+      latitude={job.coordinates.lat}
+      longitude={job.coordinates.lng}
+    >
       <Logo src={job.logo} />
     </Marker>
   ));

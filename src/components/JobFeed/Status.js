@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
-export const Status = ({ pending, error }) => {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setReady(true);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return pending || !ready ? (
+const Status = ({ pending, error }) =>
+  pending || error ? (
     <Wrapper>
       <Container>
         <Message>{error ? "Error" : "Loading..."}</Message>
       </Container>
     </Wrapper>
   ) : null;
-};
 
 const Wrapper = styled.div`
   position: relative;
@@ -40,3 +30,5 @@ const Message = styled.h1`
   font-weight: 700;
   color: #2d3748;
 `;
+
+export default Status;

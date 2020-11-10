@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import { companies } from "../../../config";
@@ -8,10 +9,12 @@ import { Icon } from "../../common";
 export const FilterCompany = ({ company, setCompany }) => {
   const [showOptions, setShowOptions] = useState(false);
 
-  const handleSelect = option => {
+  const handleSelect = (option) => {
     setCompany("company", option);
     setShowOptions(false);
   };
+
+  const jobs = useSelector((state) => state.jobs.data);
 
   return (
     <Container>
@@ -21,11 +24,24 @@ export const FilterCompany = ({ company, setCompany }) => {
       </Active>
       {showOptions && (
         <Options>
-          {companies.map((option, i) => (
-            <Option key={i} onClick={() => handleSelect(option)}>
-              {option}
-            </Option>
-          ))}
+          {companies.map((option, i) => {
+            const count = jobs.filter((job) => job.company === option).length;
+            return (
+              <Option key={i} onClick={() => handleSelect(option)}>
+                <Status
+                  count={option === "All companies" ? jobs.length : count}
+                >
+                  &bull;
+                </Status>
+                {option}{" "}
+                {option === "All companies"
+                  ? `(${jobs.length})`
+                  : count === 0
+                  ? null
+                  : `(${count})`}
+              </Option>
+            );
+          })}
         </Options>
       )}
     </Container>
@@ -70,4 +86,10 @@ const Option = styled.li`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Status = styled.span`
+  margin-right: 4px;
+  color: ${({ count }) => (count === 0 ? "#E53E3E" : "#48BB78")};
+  font-size: 18px;
 `;

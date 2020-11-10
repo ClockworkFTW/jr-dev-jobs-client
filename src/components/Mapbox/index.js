@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
 import styled from "styled-components";
 
@@ -10,13 +10,17 @@ import { Markers } from "./Markers";
 
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
-const Mapbox = ({ jobs, location, map }) => {
-  const { latitude, longitude, zoom } = map;
+const Mapbox = () => {
+  const jobs = useSelector((state) => reduceJobs(state)).filter(
+    (job) => job.coordinates
+  );
+  const { location } = useSelector((state) => state);
+  const { latitude, longitude, zoom } = useSelector((state) => state.map);
 
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: -95,
-    zoom: 3.5
+    zoom: 3.5,
   });
 
   useEffect(() => {
@@ -26,17 +30,15 @@ const Mapbox = ({ jobs, location, map }) => {
         longitude,
         zoom,
         transitionDuration: 5000,
-        transitionInterpolator: new FlyToInterpolator()
+        transitionInterpolator: new FlyToInterpolator(),
       });
     }
   }, [latitude, longitude, zoom]);
 
-  const onViewportChange = viewport => {
+  const onViewportChange = (viewport) => {
     const { width, height, ...etc } = viewport;
     setViewport(etc);
   };
-
-  const jobsWithCoords = jobs.filter(job => job.coords);
 
   return (
     <Container>
@@ -46,10 +48,10 @@ const Mapbox = ({ jobs, location, map }) => {
         width="100%"
         height="100%"
         {...viewport}
-        onViewportChange={viewport => onViewportChange(viewport)}
+        onViewportChange={(viewport) => onViewportChange(viewport)}
         mapboxApiAccessToken={TOKEN}
       >
-        <Markers jobs={jobsWithCoords} />
+        <Markers jobs={jobs} />
       </ReactMapGL>
     </Container>
   );
@@ -66,10 +68,4 @@ const Container = styled.div`
   }
 `;
 
-const mapStateToProps = state => ({
-  jobs: reduceJobs(state),
-  location: state.location.data,
-  map: state.map
-});
-
-export default connect(mapStateToProps)(Mapbox);
+export default Mapbox;

@@ -1,3 +1,7 @@
+export const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 const getDistance = (lat1, lon1, lat2, lon2) => {
   if (lat1 === lat2 && lon1 === lon2) {
     return 0;
@@ -22,7 +26,7 @@ const getDistance = (lat1, lon1, lat2, lon2) => {
 const filterJobs = (jobs, filters) => {
   const { search, company, remote, favorite } = filters;
 
-  return jobs.filter(job => {
+  return jobs.filter((job) => {
     // Check if job title contains search value
     const filteredByTitle = job.title
       .toLowerCase()

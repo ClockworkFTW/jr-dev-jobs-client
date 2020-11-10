@@ -1,4 +1,5 @@
 import { getJobs } from "../services/jobs";
+import { sleep } from "../util";
 
 const JOBS_API_PENDING = "JOBS_API_PENDING";
 const JOBS_API_SUCCESS = "JOBS_API_SUCCESS";
@@ -9,24 +10,25 @@ const SET_FAVORITE = "SET_FAVORITE";
 const FAVCACHE = "jr-dev-jobs-favorites";
 
 const pending = () => ({
-  type: JOBS_API_PENDING
+  type: JOBS_API_PENDING,
 });
 
-const success = jobs => ({
+const success = (jobs) => ({
   type: JOBS_API_SUCCESS,
-  jobs
+  jobs,
 });
 
-const failure = error => ({
+const failure = (error) => ({
   type: JOBS_API_FAILURE,
-  error
+  error,
 });
 
 export const fetchJobs = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(pending());
     try {
       const jobs = await getJobs();
+      await sleep(2000);
       dispatch(success(jobs));
     } catch (error) {
       dispatch(failure(error));
@@ -34,15 +36,15 @@ export const fetchJobs = () => {
   };
 };
 
-export const setFavorite = id => ({
+export const setFavorite = (id) => ({
   type: SET_FAVORITE,
-  id
+  id,
 });
 
 const INITIAL_STATE = {
   pending: false,
   data: [],
-  error: null
+  error: null,
 };
 
 const jobsReducer = (state = INITIAL_STATE, action) => {
@@ -66,7 +68,7 @@ const setFavorites = ({ jobs }) => {
 
   if (cachedFavs) {
     cachedFavs = JSON.parse(cachedFavs);
-    return jobs.map(job => {
+    return jobs.map((job) => {
       if (cachedFavs.includes(job.id)) {
         return { ...job, favorite: true };
       } else {
@@ -84,7 +86,7 @@ const cacheFavorites = ({ id }) => {
   if (cachedFavs) {
     cachedFavs = JSON.parse(cachedFavs);
     if (cachedFavs.includes(id)) {
-      cachedFavs = cachedFavs.filter(fav => fav !== id);
+      cachedFavs = cachedFavs.filter((fav) => fav !== id);
     } else {
       cachedFavs = [...cachedFavs, id];
     }
@@ -98,7 +100,7 @@ const cacheFavorites = ({ id }) => {
 };
 
 const handleSetFavorite = (state, action) => {
-  const jobs = state.data.map(job => {
+  const jobs = state.data.map((job) => {
     if (job.id === action.id) {
       return { ...job, favorite: !job.favorite };
     } else {

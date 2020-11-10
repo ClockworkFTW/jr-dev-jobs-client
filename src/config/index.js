@@ -1,7 +1,7 @@
 export const companies = [
   "All companies",
+  "Airbnb",
   "GitHub",
-  "Stripe",
   "eBay",
   "VMware",
   "Robinhood",
@@ -9,5 +9,25 @@ export const companies = [
   "Dropbox",
   "Stripe",
   "PayPal",
-  "Square"
+  "Square",
+  "Pinterest",
+];
+
+export const keywords = [
+  "JavaScript",
+  "HTML",
+  "CSS",
+  "SQL",
+  "React",
+  "Redux",
+  "TypeScript",
+  "Python",
+  "Objective-C",
+  "Swift",
+  "C#",
+  "MySQL",
+  "Java",
+  "Cassandra",
+  "Perl",
+  "Shell",
 ];
