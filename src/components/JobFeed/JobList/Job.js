@@ -2,37 +2,33 @@ import React from "react";
 import moment from "moment";
 import styled from "styled-components";
 
-import { Icon } from "../../common";
+import { H1, H3 } from "../../common";
+import Rating from "./Rating";
+import Technologies from "../JobView/Technologies";
 
-export const Job = ({ job, setFavorite, selectJob }) => (
+const Job = ({ job, selectJob }) => (
   <Container favorite={job.favorite} onClick={() => selectJob(job)}>
-    <Logo src={job.logo} alt={`${job.company} logo`} />
-    <Content>
+    <Side>
+      <Logo src={job.logo} alt={`${job.company} logo`} />
+      <Rating reviews={job.reviews} />
+    </Side>
+    <Main>
+      <H1 color="#a0aec0">{job.company}</H1>
       <Banner>
-        <Company>{job.company}</Company>
-        <Favorite
-          type="button"
-          favorite={job.favorite}
-          onClick={() => setFavorite(job.id)}
-        >
-          <Icon icon={["fal", "star"]} />
-        </Favorite>
+        <Title style={{ flex: "0 0 70%" }}>{job.title}</Title>
+        <Salary>
+          <span style={{ color: "#5A67D8" }}>
+            {job.salary[0].Base} - {job.salary[0].Total}
+          </span>{" "}
+          USD
+        </Salary>
       </Banner>
-      <Title>{job.title}</Title>
       <Banner>
-        <MetaData favorite={job.favorite}>
-          <Icon
-            style={{ marginRight: "6px" }}
-            icon={["fal", job.coordinates ? "map-marker" : "globe"]}
-          />
-          {job.location}
-        </MetaData>
-        <MetaData favorite={job.favorite}>
-          <Icon style={{ marginRight: "6px" }} icon={["fal", "clock"]} />
-          {moment(job.time).fromNow()}
-        </MetaData>
+        <H3>{job.location}</H3>
+        <H3>{moment(job.time).format("MM.DD.YYYY")}</H3>
       </Banner>
-    </Content>
+      <Technologies listing={job.listing} />
+    </Main>
   </Container>
 );
 
@@ -40,29 +36,46 @@ const Container = styled.li`
   display: flex;
   align-items: center;
   margin: 20px 0;
-  padding: 20px;
+  padding: 1.25em;
   border: 1px solid ${(props) => (props.favorite ? "#D69E2E" : "#edf2f7")};
   border-radius: 8px;
   background: ${(props) => (props.favorite ? "#FAF089" : "#ffffff")};
   transition: all 0.2s ease-in-out;
+  &:nth-child(1) {
+    margin-top: 0;
+  }
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
   &:hover {
     cursor: pointer;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
       0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
-`;
-
-const Logo = styled.img`
-  flex: 0;
-  width: 80px;
-  height: 80px;
-  margin-right: 20px;
   @media (max-width: 900px) {
-    display: none;
+    margin: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #edf2f7;
+    border-radius: 0;
   }
 `;
 
-const Content = styled.div`
+const Side = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 1.25em; ;
+`;
+
+const Logo = styled.img`
+  margin-bottom: 0.625em;
+  width: 3.75em;
+  height: 3.75em;
+`;
+
+const Main = styled.div`
   flex: 1;
 `;
 
@@ -70,39 +83,21 @@ const Banner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 8px 0;
 `;
 
-const Company = styled.h2`
-  margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  color: #4a5568;
-`;
-
-const Favorite = styled.button`
-  padding: 0;
-  border: none;
-  background: none;
-  outline: none;
-  font-size: 20px;
-  color: ${(props) => (props.favorite ? "#D69E2E" : "#718096")};
-  &:hover {
-    color: #d69f2e;
-    cursor: pointer;
+const Title = styled(H1)`
+  flex: 0 0 70%;
+  @media (max-width: 900px) {
+    flex: 0 0 100% !important;
   }
 `;
 
-const Title = styled.h1`
-  margin: 6px 30px 16px 0;
-  line-height: 28px;
+const Salary = styled(H3)`
   font-weight: 700;
-  font-size: 22px;
-  color: #2d3748;
+  @media (max-width: 900px) {
+    display: none;
+  }
 `;
 
-const MetaData = styled.h3`
-  text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 200;
-  color: ${(props) => (props.favorite ? "#D69E2E" : "#a0aec0")};
-`;
+export default Job;

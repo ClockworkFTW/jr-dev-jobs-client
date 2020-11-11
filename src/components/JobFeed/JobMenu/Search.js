@@ -1,19 +1,26 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+
+import { setFilter } from "../../../reducers/filter";
 
 import { Icon } from "../../common";
 
-export const FilterSearch = ({ search, setSearch }) => (
-  <Container>
-    <Icon fontSize="18px" icon={["fal", "search"]} />
-    <Input
-      type="text"
-      placeholder="Search job title"
-      value={search}
-      onChange={e => setSearch("search", e.target.value)}
-    />
-  </Container>
-);
+const Search = ({ jobs }) => {
+  const dispatch = useDispatch();
+  const { search } = useSelector((state) => state.filters);
+  return (
+    <Container>
+      <Icon fontSize="18px" icon={["fal", "search"]} />
+      <Input
+        type="text"
+        placeholder={`Search ${jobs.length} jobs`}
+        value={search}
+        onChange={(e) => dispatch(setFilter("search", e.target.value))}
+      />
+    </Container>
+  );
+};
 
 const Container = styled.div`
   flex: 1;
@@ -41,3 +48,5 @@ const Input = styled.input`
     color: #718096;
   }
 `;
+
+export default Search;

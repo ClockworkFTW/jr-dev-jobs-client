@@ -9,7 +9,7 @@ const Reviews = ({ reviews }) => (
       <Review>
         <Rating>
           <Text>{review[1]}</Text>
-          <Icon icon={["fal", "star"]} />
+          <Icon icon={["fas", "star"]} />
         </Rating>
         <Category>{review[0]}</Category>
       </Review>

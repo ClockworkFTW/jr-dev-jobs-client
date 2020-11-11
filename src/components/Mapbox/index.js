@@ -60,7 +60,7 @@ const Mapbox = () => {
 const Container = styled.div`
   position: relative;
   float: right;
-  width: calc(100vw - 600px);
+  width: calc(100vw - 700px);
   height: 100vh;
   background: #f6f6f4;
   @media (max-width: 900px) {

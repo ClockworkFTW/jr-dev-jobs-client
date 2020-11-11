@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { setViewport } from "../../../reducers/map";
 import { setFavorite } from "../../../reducers/jobs";
 
-import { Count } from "./Count";
-import { Job } from "./Job";
+import Job from "./Job";
 
 const JobList = ({ jobs, setViewing }) => {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ const JobList = ({ jobs, setViewing }) => {
 
   return (
     <ul>
-      <Count count={jobs.length} />
+      {/* <Count count={jobs.length} /> */}
       {jobs.map((job, i) => (
         <Job key={i} job={job} setFavorite={favorite} selectJob={selectJob} />
       ))}

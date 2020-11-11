@@ -34,7 +34,7 @@ const filterJobs = (jobs, filters) => {
 
     // Check if job company matches filter criteria
     const filteredByCompany =
-      company === "All companies" ? true : job.company === company;
+      company.length === 0 ? true : company.includes(job.company);
 
     // Check if job is remote
     const filteredByRemote = remote
@@ -62,15 +62,15 @@ const sortJobs = (jobs, location) =>
   jobs.sort((a, b) => {
     // Get distance from current job to user
     const aDist = getDistance(
-      a.coords ? a.coords.lat : location.data.latitude,
-      a.coords ? a.coords.lng : location.data.longitude,
+      a.coordinates ? a.coordinates.lat : location.data.latitude,
+      a.coordinates ? a.coordinates.lng : location.data.longitude,
       location.data.latitude,
       location.data.longitude
     );
     // Get distance from next job to user
     const bDist = getDistance(
-      b.coords ? b.coords.lat : location.data.latitude,
-      b.coords ? b.coords.lng : location.data.longitude,
+      b.coordinates ? b.coordinates.lat : location.data.latitude,
+      b.coordinates ? b.coordinates.lng : location.data.longitude,
       location.data.latitude,
       location.data.longitude
     );
