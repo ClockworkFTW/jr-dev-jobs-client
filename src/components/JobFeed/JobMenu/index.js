@@ -17,13 +17,20 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 1.25em;
   border-bottom: 1px solid #edf2f7;
 `;
 
 const Button = styled.button`
   margin-left: 8px;
   font-size: 22px;
+  color: #4a5568;
+  border: none;
+  background: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default JobMenu;

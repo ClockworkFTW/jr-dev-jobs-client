@@ -1,71 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ReactMapGL, { FlyToInterpolator } from "react-map-gl";
-import styled from "styled-components";
 
 import { reduceJobs } from "../../util";
-
-import { Alert } from "./Alert";
 import { Markers } from "./Markers";
-
 const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const Mapbox = () => {
-  const jobs = useSelector((state) => reduceJobs(state)).filter(
-    (job) => job.coordinates
-  );
-  const { location } = useSelector((state) => state);
-  const { latitude, longitude, zoom } = useSelector((state) => state.map);
+  // prettier-ignore
+  const jobs = useSelector((state) => reduceJobs(state).filter((job) => job.coordinates));
+  const job = useSelector((state) => state.job);
 
+  // Set initial viewport state centered on US
   const [viewport, setViewport] = useState({
     latitude: 37,
     longitude: -95,
     zoom: 3.5,
   });
 
-  useEffect(() => {
-    if (latitude && longitude && zoom) {
-      setViewport({
-        latitude,
-        longitude,
-        zoom,
-        transitionDuration: 5000,
-        transitionInterpolator: new FlyToInterpolator(),
-      });
-    }
-  }, [latitude, longitude, zoom]);
-
+  // Handle viewport changes
   const onViewportChange = (viewport) => {
     const { width, height, ...etc } = viewport;
     setViewport(etc);
   };
 
+  // Fly to location when job is selected
+  useEffect(() => {
+    if (job && job.coordinates) {
+      setViewport({
+        latitude: job.coordinates.lat,
+        longitude: job.coordinates.lng,
+        zoom: 10,
+        transitionDuration: "auto",
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+    }
+  }, [job]);
+
   return (
-    <Container>
-      <Alert location={location} />
-      <ReactMapGL
-        mapStyle="mapbox://styles/mapbox/light-v10"
-        width="100%"
-        height="100%"
-        {...viewport}
-        onViewportChange={(viewport) => onViewportChange(viewport)}
-        mapboxApiAccessToken={TOKEN}
-      >
-        <Markers jobs={jobs} />
-      </ReactMapGL>
-    </Container>
+    <ReactMapGL
+      mapStyle="mapbox://styles/mapbox/light-v10"
+      width="100%"
+      height="100%"
+      {...viewport}
+      onViewportChange={(viewport) => onViewportChange(viewport)}
+      mapboxApiAccessToken={TOKEN}
+    >
+      <Markers jobs={jobs} />
+    </ReactMapGL>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-  float: right;
-  width: calc(100vw - 700px);
-  height: 100vh;
-  background: #f6f6f4;
-  @media (max-width: 900px) {
-    display: none;
-  }
-`;
 
 export default Mapbox;

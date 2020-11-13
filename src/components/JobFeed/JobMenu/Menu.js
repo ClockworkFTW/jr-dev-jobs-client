@@ -10,16 +10,20 @@ const Menu = () => {
   const dispatch = useDispatch();
 
   const jobs = useSelector((state) => state.jobs.data);
-  const selected = useSelector((state) => state.filters.company);
+  const { company, remote } = useSelector((state) => state.filters);
 
   return (
     <Container>
+      <button onClick={() => dispatch(setFilter("reset"))}>reset</button>
+      <button onClick={() => dispatch(setFilter("remote", !remote))}>
+        remote
+      </button>
       <Companies>
         {companies
           .sort((a, b) => a.localeCompare(b))
           .map((option, i) => {
             const count = jobs.filter((job) => job.company === option).length;
-            const active = selected.includes(option);
+            const active = company.includes(option);
             return (
               <Company
                 key={i}
@@ -36,11 +40,18 @@ const Menu = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  @media (max-width: 900px) {
+    padding: 1.25em;
+  }
+`;
 
 const Companies = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const Company = styled.div`

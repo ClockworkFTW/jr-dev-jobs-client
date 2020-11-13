@@ -16,7 +16,9 @@ const filterReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_FILTER:
       const { name, value } = action.filter;
-      if (name === "company") {
+      if (name === "reset") {
+        return INITIAL_STATE;
+      } else if (name === "company") {
         let { company } = state;
         if (company.includes(value)) {
           company = company.filter((e) => e !== value);

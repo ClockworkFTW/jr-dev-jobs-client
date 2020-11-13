@@ -1,15 +1,15 @@
 import { combineReducers } from "redux";
 
+import jobReducer from "./job";
 import jobsReducer from "./jobs";
-import locationReducer from "./location";
 import filterReducer from "./filter";
-import mapReducer from "./map";
+import locationReducer from "./location";
 
 const rootReducer = combineReducers({
+  job: jobReducer,
   jobs: jobsReducer,
-  location: locationReducer,
   filters: filterReducer,
-  map: mapReducer
+  location: locationReducer,
 });
 
 export default rootReducer;

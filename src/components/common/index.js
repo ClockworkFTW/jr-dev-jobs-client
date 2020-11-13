@@ -2,10 +2,10 @@ import "reset-css";
 import styled, { createGlobalStyle } from "styled-components";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fal } from "@fortawesome/pro-light-svg-icons";
-import { faStar } from "@fortawesome/pro-solid-svg-icons";
+import { faStar, faLongArrowLeft } from "@fortawesome/pro-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(fal, faStar);
+library.add(fal, faStar, faLongArrowLeft);
 
 export const GlobalStyle = createGlobalStyle`
   html {

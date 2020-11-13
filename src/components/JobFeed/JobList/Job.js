@@ -6,8 +6,8 @@ import { H1, H3 } from "../../common";
 import Rating from "./Rating";
 import Technologies from "../JobView/Technologies";
 
-const Job = ({ job, selectJob }) => (
-  <Container favorite={job.favorite} onClick={() => selectJob(job)}>
+const Job = ({ job, setJob }) => (
+  <Container favorite={job.favorite} onClick={() => setJob(job)}>
     <Side>
       <Logo src={job.logo} alt={`${job.company} logo`} />
       <Rating reviews={job.reviews} />
@@ -25,7 +25,7 @@ const Job = ({ job, selectJob }) => (
       </Banner>
       <Banner>
         <H3>{job.location}</H3>
-        <H3>{moment(job.time).format("MM.DD.YYYY")}</H3>
+        <H3>{moment(job.time).fromNow()}</H3>
       </Banner>
       <Technologies listing={job.listing} />
     </Main>

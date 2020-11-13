@@ -1,37 +1,21 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-
-import { setViewport } from "../../../reducers/map";
-import { setFavorite } from "../../../reducers/jobs";
+import styled from "styled-components";
 
 import Job from "./Job";
 
-const JobList = ({ jobs, setViewing }) => {
-  const dispatch = useDispatch();
+const JobList = ({ jobs, setJob }) => (
+  <Container>
+    {jobs.map((job, i) => (
+      <Job key={i} job={job} setJob={setJob} />
+    ))}
+  </Container>
+);
 
-  const favorite = (id) => dispatch(setFavorite(id));
-
-  const selectJob = (job) => {
-    setViewing(job);
-    if (job.coordinates) {
-      dispatch(
-        setViewport({
-          latitude: job.coordinates.lat,
-          longitude: job.coordinates.lng,
-          zoom: 10,
-        })
-      );
-    }
-  };
-
-  return (
-    <ul>
-      {/* <Count count={jobs.length} /> */}
-      {jobs.map((job, i) => (
-        <Job key={i} job={job} setFavorite={favorite} selectJob={selectJob} />
-      ))}
-    </ul>
-  );
-};
+const Container = styled.ul`
+  padding: 20px;
+  @media (max-width: 900px) {
+    padding: 0;
+  }
+`;
 
 export default JobList;

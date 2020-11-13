@@ -4,35 +4,30 @@ import moment from "moment";
 import styled from "styled-components";
 
 import "./index.css";
-import { Icon } from "../../common";
+import { Icon, H1, H3 } from "../../common";
 import Salary from "./Salary";
 import Reviews from "./Reviews";
 import Technologies from "./Technologies";
 
-const JobView = ({ job, setViewing }) => (
-  <div>
+const JobView = ({ job, setJob }) => (
+  <Container>
     <Header>
       <Logo src={job.logo} />
       <Content>
         <Banner>
-          <Company>{job.company}</Company>
+          <Button onClick={() => setJob(null)}>
+            <H1 color="#a0aec0">
+              <Icon icon={["fas", "long-arrow-left"]} /> {job.company}
+            </H1>
+          </Button>
           <Link href={job.link} target="_blank">
             Apply
           </Link>
         </Banner>
         <Title>{job.title}</Title>
         <Banner>
-          <MetaData>
-            <Icon
-              style={{ marginRight: "6px" }}
-              icon={["fal", job.coordinates ? "map-marker" : "globe"]}
-            />
-            {job.location}
-          </MetaData>
-          <MetaData>
-            <Icon style={{ marginRight: "6px" }} icon={["fal", "clock"]} />
-            {moment(job.time).fromNow()}
-          </MetaData>
+          <H3>{job.location}</H3>
+          <H3>{moment(job.time).fromNow()}</H3>
         </Banner>
       </Content>
     </Header>
@@ -56,14 +51,18 @@ const JobView = ({ job, setViewing }) => (
       <Heading>job listing</Heading>
       <Listing className="listing">{ReactHtmlParser(job.listing)}</Listing>
     </Section>
-  </div>
+  </Container>
 );
+
+const Container = styled.div`
+  padding: 1.25em;
+`;
 
 const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  padding-bottom: 20px;
+  padding-bottom: 1.25em;
   border-bottom: 1px solid #edf2f7;
 `;
 
@@ -71,12 +70,9 @@ const Logo = styled.img`
   flex: 0;
   width: 80px;
   height: 80px;
-  margin-right: 20px;
+  margin-right: 1.25em;
   @media (max-width: 900px) {
     display: none;
-  }
-  &:hover {
-    cursor: pointer;
   }
 `;
 
@@ -90,24 +86,29 @@ const Banner = styled.div`
   align-items: center;
 `;
 
-const Company = styled.h2`
-  margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  color: #4a5568;
+const Button = styled.button`
+  display: flex;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: inherit;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Link = styled.a`
   padding: 6px 12px;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 700;
   background: #5a67d8;
   color: #ffffff;
   border-radius: 4px;
 `;
 
 const Title = styled.h1`
-  margin: 6px 30px 16px 0;
+  margin: 6px 0 12px 0;
   line-height: 28px;
   font-weight: 700;
   font-size: 22px;
