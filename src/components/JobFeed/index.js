@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import { setViewing } from "../../reducers/job";
+import { applyJob, highlightJob } from "../../reducers/jobs";
 import { useContainerSize } from "../../util/hooks";
 import { reduceJobs } from "../../util";
 
@@ -20,7 +21,9 @@ const JobFeed = () => {
   // Set job state and define selector
   const dispatch = useDispatch();
   const job = useSelector((state) => state.job);
-  const setJob = (job) => dispatch(setViewing(job));
+  const view = (job) => dispatch(setViewing(job));
+  const highlight = (job) => dispatch(highlightJob(job.id));
+  const apply = (job) => dispatch(applyJob(job.id));
 
   // Set menu height and toggle state
   const [menuVisible, setMenuVisible] = useState(false);
@@ -44,9 +47,9 @@ const JobFeed = () => {
           <Menu />
         ) : jobs.length !== 0 ? (
           job ? (
-            <JobView job={job} setJob={setJob} />
+            <JobView job={job} view={view} apply={apply} />
           ) : (
-            <JobList jobs={jobs} setJob={setJob} />
+            <JobList jobs={jobs} view={view} highlight={highlight} />
           )
         ) : null}
       </Container>

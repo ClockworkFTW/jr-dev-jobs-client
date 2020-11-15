@@ -1,27 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { keywords } from "../../../config";
-
-const Technologies = ({ listing }) => {
-  const technologies = listing
-    ? keywords.map((keyword) => {
-        const regex = new RegExp(keyword, "g");
-        const count = (listing.match(regex) || []).length;
-        return [keyword, count];
-      })
-    : [];
-
-  return (
+const Technologies = ({ technologies }) =>
+  technologies ? (
     <Container>
-      {technologies.map((technology, i) =>
-        technology[1] !== 0 ? (
-          <Technology key={i}>{technology[0]}</Technology>
-        ) : null
-      )}
+      {technologies.map((technology, i) => (
+        <Technology key={i}>{technology[0]}</Technology>
+      ))}
     </Container>
-  );
-};
+  ) : null;
 
 const Container = styled.ul``;
 

@@ -24,7 +24,7 @@ export const useContainerSize = (ref) => {
 
     // Remove event listener on cleanup
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [ref]);
 
   return containerSize;
 };

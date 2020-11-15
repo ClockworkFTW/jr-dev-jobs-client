@@ -27,7 +27,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-betwen;
   align-items: center;
-  padding: 10px;
+  padding: 0.625em;
   background: #edf2f7;
   border-radius: 4px;
   color: #718096;
@@ -39,7 +39,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 0.875em;
   color: #2d3748;
   text-transform: capitalize;
   background: #edf2f7;

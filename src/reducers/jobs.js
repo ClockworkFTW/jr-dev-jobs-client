@@ -5,17 +5,16 @@ const JOBS_API_PENDING = "JOBS_API_PENDING";
 const JOBS_API_SUCCESS = "JOBS_API_SUCCESS";
 const JOBS_API_FAILURE = "JOBS_API_FAILURE";
 
-const SET_FAVORITE = "SET_FAVORITE";
-
-const FAVCACHE = "jr-dev-jobs-favorites";
+const HIGHLIGHT_JOB = "HIGHLIGHT_JOB";
+const APPLY_JOB = "APPLY_JOB";
 
 const pending = () => ({
   type: JOBS_API_PENDING,
 });
 
-const success = (jobs) => ({
+const success = (data) => ({
   type: JOBS_API_SUCCESS,
-  jobs,
+  data,
 });
 
 const failure = (error) => ({
@@ -36,8 +35,13 @@ export const fetchJobs = () => {
   };
 };
 
-export const setFavorite = (id) => ({
-  type: SET_FAVORITE,
+export const highlightJob = (id) => ({
+  type: HIGHLIGHT_JOB,
+  id,
+});
+
+export const applyJob = (id) => ({
+  type: APPLY_JOB,
   id,
 });
 
@@ -52,65 +56,57 @@ const jobsReducer = (state = INITIAL_STATE, action) => {
     case JOBS_API_PENDING:
       return { ...state, pending: true };
     case JOBS_API_SUCCESS:
-      const jobs = setFavorites(action);
-      return { ...state, data: jobs, pending: false };
+      const data = checkApplied(action.data);
+      return { ...state, data, pending: false };
     case JOBS_API_FAILURE:
       return { ...state, error: action.error, pending: false };
-    case SET_FAVORITE:
-      return handleSetFavorite(state, action);
+    case HIGHLIGHT_JOB:
+      return {
+        ...state,
+        data: toggleJobProp(state.data, action.id, "highlighted"),
+      };
+    case APPLY_JOB:
+      cacheApplied(action.id);
+      return {
+        ...state,
+        data: toggleJobProp(state.data, action.id, "applied"),
+      };
     default:
       return state;
   }
 };
 
-const setFavorites = ({ jobs }) => {
-  let cachedFavs = localStorage.getItem(FAVCACHE);
-
-  if (cachedFavs) {
-    cachedFavs = JSON.parse(cachedFavs);
-    return jobs.map((job) => {
-      if (cachedFavs.includes(job.id)) {
-        return { ...job, favorite: true };
-      } else {
-        return job;
-      }
-    });
-  } else {
-    return jobs;
-  }
-};
-
-const cacheFavorites = ({ id }) => {
-  let cachedFavs = localStorage.getItem(FAVCACHE);
-
-  if (cachedFavs) {
-    cachedFavs = JSON.parse(cachedFavs);
-    if (cachedFavs.includes(id)) {
-      cachedFavs = cachedFavs.filter((fav) => fav !== id);
+const checkApplied = (jobs) =>
+  jobs.map((job) => {
+    const applied = JSON.parse(localStorage.getItem("junior_dev_jobs_applied"));
+    if (applied.includes(job.id)) {
+      return { ...job, applied: true };
     } else {
-      cachedFavs = [...cachedFavs, id];
+      return { ...job, applied: false };
+    }
+  });
+
+const cacheApplied = (id) => {
+  let applied = JSON.parse(localStorage.getItem("junior_dev_jobs_applied"));
+  if (applied) {
+    if (applied.includes(id)) {
+      applied = applied.filter((e) => e !== id);
+    } else {
+      applied = [...applied, id];
     }
   } else {
-    cachedFavs = [id];
+    applied = [id];
   }
-
-  console.log(cachedFavs);
-  cachedFavs = JSON.stringify(cachedFavs);
-  localStorage.setItem(FAVCACHE, cachedFavs);
+  localStorage.setItem("junior_dev_jobs_applied", JSON.stringify(applied));
 };
 
-const handleSetFavorite = (state, action) => {
-  const jobs = state.data.map((job) => {
-    if (job.id === action.id) {
-      return { ...job, favorite: !job.favorite };
+const toggleJobProp = (jobs, id, prop) =>
+  jobs.map((job) => {
+    if (job.id === id) {
+      return { ...job, [prop]: !job[prop] };
     } else {
       return job;
     }
   });
-
-  cacheFavorites(action);
-
-  return { ...state, data: jobs };
-};
 
 export default jobsReducer;

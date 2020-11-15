@@ -9,20 +9,22 @@ import Salary from "./Salary";
 import Reviews from "./Reviews";
 import Technologies from "./Technologies";
 
-const JobView = ({ job, setJob }) => (
+const JobView = ({ job, view, apply }) => (
   <Container>
     <Header>
       <Logo src={job.logo} />
       <Content>
         <Banner>
-          <Button onClick={() => setJob(null)}>
+          <Button onClick={() => view(null)}>
             <H1 color="#a0aec0">
               <Icon icon={["fas", "long-arrow-left"]} /> {job.company}
             </H1>
           </Button>
-          <Link href={job.link} target="_blank">
-            Apply
-          </Link>
+          <a href={job.link} target="_blank" rel="noopener noreferrer">
+            <button onClick={() => apply(job)}>
+              {job.applied ? "Applied" : "Apply"}
+            </button>
+          </a>
         </Banner>
         <Title>{job.title}</Title>
         <Banner>
@@ -39,7 +41,7 @@ const JobView = ({ job, setJob }) => (
         </Column>
         <Column>
           <Heading>tech requirements</Heading>
-          <Technologies listing={job.listing} />
+          <Technologies technologies={job.technologies} />
         </Column>
       </Group>
     </Section>
@@ -97,29 +99,12 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
-  padding: 6px 12px;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  background: #5a67d8;
-  color: #ffffff;
-  border-radius: 4px;
-`;
-
 const Title = styled.h1`
   margin: 6px 0 12px 0;
   line-height: 28px;
   font-weight: 700;
   font-size: 22px;
   color: #2d3748;
-`;
-
-const MetaData = styled.h3`
-  text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 200;
-  color: #a0aec0;
 `;
 
 const Section = styled.div`

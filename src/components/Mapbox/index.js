@@ -12,11 +12,12 @@ const Mapbox = () => {
   const job = useSelector((state) => state.job);
 
   // Set initial viewport state centered on US
-  const [viewport, setViewport] = useState({
+  const INITIAL_STATE = {
     latitude: 37,
     longitude: -95,
     zoom: 3.5,
-  });
+  };
+  const [viewport, setViewport] = useState(INITIAL_STATE);
 
   // Handle viewport changes
   const onViewportChange = (viewport) => {
@@ -30,8 +31,14 @@ const Mapbox = () => {
       setViewport({
         latitude: job.coordinates.lat,
         longitude: job.coordinates.lng,
-        zoom: 10,
+        zoom: 12,
         transitionDuration: "auto",
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+    } else {
+      setViewport({
+        ...INITIAL_STATE,
+        transitionDuration: 500,
         transitionInterpolator: new FlyToInterpolator(),
       });
     }
