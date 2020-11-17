@@ -22,7 +22,7 @@ const App = () => {
     dispatch(fetchLocation());
   }, [dispatch]);
 
-  const container = useRef();
+  const container = useRef(null);
   const size = useContainerSize(container);
 
   return (
@@ -33,7 +33,7 @@ const App = () => {
           <JobFeed />
         </div>
         {size.width > 900 ? (
-          <div>
+          <div style={{ position: "relative" }}>
             <Mapbox />
           </div>
         ) : null}

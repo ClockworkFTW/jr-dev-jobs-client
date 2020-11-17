@@ -5,8 +5,8 @@ import { Icon } from "../../common";
 
 const Reviews = ({ reviews }) => (
   <Container>
-    {reviews.map((review) => (
-      <Review>
+    {reviews.map((review, i) => (
+      <Review key={i}>
         <Rating>
           <Text>{review[1]}</Text>
           <Icon icon={["fas", "star"]} />

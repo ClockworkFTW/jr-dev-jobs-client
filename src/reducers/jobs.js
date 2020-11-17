@@ -30,6 +30,7 @@ export const fetchJobs = () => {
       await sleep(2000);
       dispatch(success(jobs));
     } catch (error) {
+      console.log(error);
       dispatch(failure(error));
     }
   };
@@ -76,15 +77,20 @@ const jobsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-const checkApplied = (jobs) =>
-  jobs.map((job) => {
-    const applied = JSON.parse(localStorage.getItem("junior_dev_jobs_applied"));
-    if (applied.includes(job.id)) {
-      return { ...job, applied: true };
-    } else {
-      return { ...job, applied: false };
-    }
-  });
+const checkApplied = (jobs) => {
+  const applied = JSON.parse(localStorage.getItem("junior_dev_jobs_applied"));
+  if (applied) {
+    return jobs.map((job) => {
+      if (applied.includes(job.id)) {
+        return { ...job, applied: true };
+      } else {
+        return { ...job, applied: false };
+      }
+    });
+  } else {
+    return jobs;
+  }
+};
 
 const cacheApplied = (id) => {
   let applied = JSON.parse(localStorage.getItem("junior_dev_jobs_applied"));

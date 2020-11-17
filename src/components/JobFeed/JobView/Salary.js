@@ -26,9 +26,11 @@ const Salary = ({ salary }) => {
         </thead>
         <tbody>
           {rows.map((row, i) => (
-            <tr>
-              {row.map((cell) => (
-                <TD odd={i % 2}>{cell}</TD>
+            <tr key={i}>
+              {row.map((cell, j) => (
+                <TD key={j} odd={i % 2}>
+                  {cell}
+                </TD>
               ))}
             </tr>
           ))}
