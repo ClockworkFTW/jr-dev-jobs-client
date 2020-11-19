@@ -10,6 +10,17 @@
   bottom: 0;
 }
 
+.mapboxgl-popup-content {
+  width: 100%;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.mapboxgl-popup {
+  width: 300px;
+  max-width: inherit !important;
+}
+
 .spider-leg-container {
   width: 1px;
   height: 1px;

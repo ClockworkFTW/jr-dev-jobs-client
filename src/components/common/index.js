@@ -43,6 +43,8 @@ export const Tag = styled.div`
 `;
 
 export const H1 = styled.h1`
+  margin: 0;
+  padding: 0;
   line-height: 1.25;
   font-weight: 700;
   font-size: 1em;
@@ -50,6 +52,8 @@ export const H1 = styled.h1`
 `;
 
 export const H3 = styled.h3`
+  margin: 0;
+  padding: 0;
   font-size: 0.875em;
   color: ${({ color }) => (color ? color : "#a0aec0")};
 `;
