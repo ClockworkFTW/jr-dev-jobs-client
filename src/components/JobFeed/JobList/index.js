@@ -12,7 +12,7 @@ const JobList = ({ jobs, focusJob, selectJob }) => (
       <Container
         key={i}
         onClick={() => selectJob(job)}
-        onMouseEnter={() => focusJob(job)}
+        onMouseEnter={() => (job.coordinates ? focusJob(job) : null)}
         onMouseLeave={() => focusJob(null)}
       >
         <Side>
