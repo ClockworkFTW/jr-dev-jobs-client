@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
-import jobReducer from "./job";
+import jobFocusedReducer from "./jobFocused";
+import jobSelectedReducer from "./jobSelected";
 import jobsReducer from "./jobs";
 import sortReducer from "./sort";
 import filterReducer from "./filter";
@@ -8,7 +9,8 @@ import locationReducer from "./location";
 import viewportReducer from "./viewport";
 
 const rootReducer = combineReducers({
-  job: jobReducer,
+  jobFocused: jobFocusedReducer,
+  jobSelected: jobSelectedReducer,
   jobs: jobsReducer,
   sort: sortReducer,
   filters: filterReducer,

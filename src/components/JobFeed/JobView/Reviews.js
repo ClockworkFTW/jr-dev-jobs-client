@@ -7,10 +7,8 @@ const Reviews = ({ reviews }) => (
   <Container>
     {reviews.map((review, i) => (
       <Review key={i}>
-        <Rating>
-          <Text>{review[1]}</Text>
-          <Icon icon={["fas", "star"]} />
-        </Rating>
+        <Rating>{review[1]}</Rating>
+        <Icon icon={["fas", "star"]} color="#f6e05e" />
         <Category>{review[0]}</Category>
       </Review>
     ))}
@@ -18,7 +16,7 @@ const Reviews = ({ reviews }) => (
 );
 
 const Container = styled.ul`
-  font-size: 14px;
+  font-size: 0.875em;
 `;
 
 const Review = styled.li`
@@ -27,16 +25,13 @@ const Review = styled.li`
 `;
 
 const Rating = styled.span`
-  margin-right: 8px;
+  display: inline-block;
+  width: 26px;
   font-weight: 700;
-  color: #f6e05e;
 `;
 
-const Text = styled.span`
-  margin-right: 4px;
-  color: #1a202c;
+const Category = styled.span`
+  margin-left: 8px;
 `;
-
-const Category = styled.span``;
 
 export default Reviews;

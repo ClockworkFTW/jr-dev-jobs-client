@@ -6,7 +6,8 @@ export const setSort = (sort) => ({
 });
 
 const INITIAL_STATE = {
-  distance: "dsc",
+  time: "dsc",
+  distance: null,
   rating: null,
   salary: null,
 };

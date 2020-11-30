@@ -1,0 +1,24 @@
+.listing {
+  line-height: 1.5;
+  font-size: 0.875em;
+  color: #1a202c;
+}
+
+.listing b {
+  display: block;
+  margin: 0.625em 0 !important;
+  font-weight: 700 !important;
+}
+
+.listing ul {
+  margin-bottom: 0.625em;
+  margin-left: 1rem;
+}
+
+.listing li {
+  list-style-type: disc;
+}
+
+.listing br {
+  display: none;
+}

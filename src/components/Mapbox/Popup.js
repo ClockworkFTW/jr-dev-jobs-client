@@ -1,30 +1,37 @@
-import { faEdit } from "@fortawesome/pro-light-svg-icons";
 import React from "react";
+import { useSelector } from "react-redux";
+import { Popup as MapboxPopup } from "@urbica/react-map-gl";
 import styled from "styled-components";
 
 import { H1, H3 } from "../common";
 
-const Popup = ({ feature }) => {
-  const { id, title, company, logo, location } = feature;
+const Popup = () => {
+  const job = useSelector((state) => state.jobSelected || state.jobFocused);
 
-  return (
-    <Container id={`popup-${id}`}>
-      <Side>
-        <Logo src={logo} />
-      </Side>
-      <Content>
-        <H3>{company}</H3>
-        <H1>{title}</H1>
-        <H3>{location}</H3>
-      </Content>
-    </Container>
-  );
+  return job ? (
+    <MapboxPopup
+      longitude={job.coordinates.lng}
+      latitude={job.coordinates.lat}
+      closeButton={false}
+      closeOnClick={false}
+    >
+      <Container id={`popup-${job.id}`}>
+        <Side>
+          <Logo src={job.logo} />
+        </Side>
+        <Content>
+          <H3>{job.company}</H3>
+          <H1>{job.title}</H1>
+          <H3>{job.location}</H3>
+        </Content>
+      </Container>
+    </MapboxPopup>
+  ) : null;
 };
 
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px;
 `;
 
 const Side = styled.div`

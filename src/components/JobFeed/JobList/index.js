@@ -6,14 +6,14 @@ import { Banner, Tag, Icon, H1, H3 } from "../../common";
 import Rating from "./Rating";
 import Technologies from "../JobView/Technologies";
 
-const JobList = ({ jobs, view, highlight }) => (
+const JobList = ({ jobs, focusJob, selectJob }) => (
   <Wrapper>
     {jobs.map((job, i) => (
       <Container
         key={i}
-        onClick={() => view(job)}
-        onMouseEnter={() => highlight(job)}
-        onMouseLeave={() => highlight(job)}
+        onClick={() => selectJob(job)}
+        onMouseEnter={() => focusJob(job)}
+        onMouseLeave={() => focusJob(null)}
       >
         <Side>
           <Logo src={job.logo} alt={`${job.company} logo`} />
@@ -39,10 +39,10 @@ const JobList = ({ jobs, view, highlight }) => (
             </Salary>
           </Banner>
           <Banner>
-            <H3>{job.location}</H3>
+            <H3>{job.address}</H3>
             <H3>{moment(job.time).fromNow()}</H3>
           </Banner>
-          <Technologies technologies={job.technologies} />
+          <Technologies technologies={job.technologies} basic={true} />
         </Main>
       </Container>
     ))}
@@ -57,6 +57,7 @@ const Wrapper = styled.ul`
 `;
 
 const Container = styled.li`
+  position: relative;
   display: flex;
   align-items: center;
   margin: 20px 0;
@@ -75,6 +76,24 @@ const Container = styled.li`
     cursor: pointer;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
       0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    ::before {
+      position: absolute;
+      right: -3px;
+      content: "";
+      width: 5px;
+      height: 60%;
+      background: #5a67d8;
+      border-radius: 5px;
+    }
+    ::after {
+      position: absolute;
+      left: -3px;
+      content: "";
+      width: 5px;
+      height: 60%;
+      background: #5a67d8;
+      border-radius: 5px;
+    }
   }
   @media (max-width: 900px) {
     margin: 0;

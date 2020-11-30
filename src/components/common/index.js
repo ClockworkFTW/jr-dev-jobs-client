@@ -58,11 +58,40 @@ export const H3 = styled.h3`
   color: ${({ color }) => (color ? color : "#a0aec0")};
 `;
 
-export const Button = styled.button`
+export const ButtonClear = styled.button`
   margin: ${({ margin }) => (margin ? margin : "none")};
-  padding: 6px 12px;
+  padding: ${({ padding }) => (padding ? padding : "none")};
+  font-size: ${({ size }) => (size ? size : "inherit")};
+  color: ${({ color }) => (color ? color : "inherit")};
+  background: none;
+  outline: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ButtonAction = styled.button`
+  margin: ${({ margin }) => (margin ? margin : "none")};
+  padding: 0.375em 0.75em;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 0.875em;
+  font-weight: ${({ active }) => (active ? "700" : "400")};
+  background: ${({ active }) => (active ? "#edf2f6" : "#5a67d8")};
+  color: ${({ active }) => (active ? "#2D3748" : "#ffffff")};
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ButtonPrimary = styled.button`
+  margin: ${({ margin }) => (margin ? margin : "none")};
+  padding: 0.375em 0.75em;
+  text-decoration: none;
+  font-size: 0.875em;
   font-weight: ${({ active }) => (active ? "700" : "400")};
   background: ${({ active }) => (active ? "#5a67d8" : "#edf2f6")};
   color: ${({ active }) => (active ? "#ffffff" : "#2D3748")};

@@ -3,32 +3,32 @@ import ReactHtmlParser from "react-html-parser";
 import moment from "moment";
 import styled from "styled-components";
 
-import "./index.css";
-import { Icon, H1, H3 } from "../../common";
+import "./listing.css";
+import { ButtonClear, ButtonAction, Icon, H1, H3 } from "../../common";
 import Salary from "./Salary";
 import Reviews from "./Reviews";
 import Technologies from "./Technologies";
 
-const JobView = ({ job, view, apply }) => (
+const JobView = ({ job, selectJob, apply }) => (
   <Container>
     <Header>
       <Logo src={job.logo} />
       <Content>
         <Banner>
-          <Button onClick={() => view(null)}>
+          <ButtonClear onClick={() => selectJob(null)}>
             <H1 color="#a0aec0">
               <Icon icon={["fas", "long-arrow-left"]} /> {job.company}
             </H1>
-          </Button>
+          </ButtonClear>
           <a href={job.link} target="_blank" rel="noopener noreferrer">
-            <button onClick={() => apply(job)}>
+            <ButtonAction onClick={() => apply(job)}>
               {job.applied ? "Applied" : "Apply"}
-            </button>
+            </ButtonAction>
           </a>
         </Banner>
         <Title>{job.title}</Title>
         <Banner>
-          <H3>{job.location}</H3>
+          <H3>{job.address}</H3>
           <H3>{moment(job.time).fromNow()}</H3>
         </Banner>
       </Content>
@@ -51,7 +51,7 @@ const JobView = ({ job, view, apply }) => (
     </Section>
     <Section>
       <Heading>job listing</Heading>
-      <Listing className="listing">{ReactHtmlParser(job.listing)}</Listing>
+      <Listing className="listing">{ReactHtmlParser(job.description)}</Listing>
     </Section>
   </Container>
 );
@@ -86,17 +86,6 @@ const Banner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const Button = styled.button`
-  display: flex;
-  background: none;
-  outline: none;
-  border: none;
-  font-size: inherit;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const Title = styled.h1`

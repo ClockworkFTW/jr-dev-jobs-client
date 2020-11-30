@@ -5,7 +5,6 @@ const JOBS_API_PENDING = "JOBS_API_PENDING";
 const JOBS_API_SUCCESS = "JOBS_API_SUCCESS";
 const JOBS_API_FAILURE = "JOBS_API_FAILURE";
 
-const HIGHLIGHT_JOB = "HIGHLIGHT_JOB";
 const APPLY_JOB = "APPLY_JOB";
 
 const pending = () => ({
@@ -36,11 +35,6 @@ export const fetchJobs = () => {
   };
 };
 
-export const highlightJob = (id) => ({
-  type: HIGHLIGHT_JOB,
-  id,
-});
-
 export const applyJob = (id) => ({
   type: APPLY_JOB,
   id,
@@ -61,11 +55,6 @@ const jobsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, data, pending: false };
     case JOBS_API_FAILURE:
       return { ...state, error: action.error, pending: false };
-    case HIGHLIGHT_JOB:
-      return {
-        ...state,
-        data: toggleJobProp(state.data, action.id, "highlighted"),
-      };
     case APPLY_JOB:
       cacheApplied(action.id);
       return {

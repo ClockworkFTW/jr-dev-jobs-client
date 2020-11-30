@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { companies, keywords } from "../../../config";
 import { setFilter } from "../../../reducers/filter";
 import { setSort } from "../../../reducers/sort";
-import { Banner, Button, Icon } from "../../common";
+import { Banner, ButtonPrimary, Icon } from "../../common";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,26 @@ const Menu = () => {
   const { company, technologies, applied, remote } = useSelector(
     (state) => state.filters
   );
-  const { distance, rating, salary } = useSelector((state) => state.sort);
+  const { distance, rating, salary, time } = useSelector((state) => state.sort);
 
   return (
     <Container>
       <Banner>
         <div>
-          <Button
+          <ButtonPrimary
+            onClick={() => dispatch(setSort("time"))}
+            active={time}
+            margin="0 8px 8px 0"
+          >
+            {time && (
+              <Icon
+                icon={["fas", time === "asc" ? "sort-up" : "sort-down"]}
+                margin="0 4px 0 0"
+              />
+            )}
+            New
+          </ButtonPrimary>
+          <ButtonPrimary
             onClick={() => dispatch(setSort("distance"))}
             active={distance}
             margin="0 8px 8px 0"
@@ -32,8 +45,8 @@ const Menu = () => {
               />
             )}
             Distance
-          </Button>
-          <Button
+          </ButtonPrimary>
+          <ButtonPrimary
             onClick={() => dispatch(setSort("rating"))}
             active={rating}
             margin="0 8px 8px 0"
@@ -45,8 +58,8 @@ const Menu = () => {
               />
             )}
             Rating
-          </Button>
-          <Button
+          </ButtonPrimary>
+          <ButtonPrimary
             onClick={() => dispatch(setSort("salary"))}
             active={salary}
             margin="0 8px 8px 0"
@@ -58,23 +71,25 @@ const Menu = () => {
               />
             )}
             Salary
-          </Button>
-          <Button
+          </ButtonPrimary>
+          <ButtonPrimary
             onClick={() => dispatch(setFilter("remote", !remote))}
             active={remote}
             margin="0 8px 8px 0"
           >
             Remote
-          </Button>
-          <Button
+          </ButtonPrimary>
+          <ButtonPrimary
             onClick={() => dispatch(setFilter("applied", !applied))}
             active={applied}
             margin="0 8px 8px 0"
           >
             Applied
-          </Button>
+          </ButtonPrimary>
         </div>
-        <Button onClick={() => dispatch(setFilter("reset"))}>Reset</Button>
+        <ButtonPrimary onClick={() => dispatch(setFilter("reset"))}>
+          Reset
+        </ButtonPrimary>
       </Banner>
       <Grid>
         {companies
@@ -131,8 +146,8 @@ const Grid = styled.div`
 
 const Cell = styled.div`
   margin: 4px;
-  padding: 12px;
-  font-size: 14px;
+  padding: 0.75em;
+  font-size: 0.875em;
   font-weight: ${({ active }) => (active ? "700" : "400")};
   border-radius: 4px;
   color: ${({ active }) => (active ? "#FFFFFF" : "inherit")};
@@ -146,7 +161,7 @@ const Cell = styled.div`
 const Status = styled.span`
   margin-right: 4px;
   color: ${({ count }) => (count === 0 ? "#E53E3E" : "#48BB78")};
-  font-size: 18px;
+  font-size: 1.125em;
 `;
 
 export default Menu;

@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Icon } from "../../common";
+import { ButtonClear, Icon } from "../../common";
 import Search from "./Search";
 
 const JobMenu = ({ jobs, toggle }) => (
   <Container>
     <Search jobs={jobs} />
-    <Button onClick={toggle}>
+    <ButtonClear
+      onClick={toggle}
+      margin="0 0 0 8px"
+      color="#4a5568"
+      size="22px"
+    >
       <Icon icon={["fal", "sliders-h"]} />
-    </Button>
+    </ButtonClear>
   </Container>
 );
 
@@ -19,18 +24,6 @@ const Container = styled.div`
   align-items: center;
   padding: 1.25em;
   border-bottom: 1px solid #edf2f7;
-`;
-
-const Button = styled.button`
-  margin-left: 8px;
-  font-size: 22px;
-  color: #4a5568;
-  border: none;
-  background: none;
-  outline: none;
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export default JobMenu;

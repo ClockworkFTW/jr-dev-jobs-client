@@ -41,7 +41,8 @@ const Salary = ({ salary }) => {
 };
 
 const Container = styled.div`
-  font-size: 14px;
+  font-size: 0.875em;
+  color: #2d3748;
 `;
 
 const TH = styled.th`
